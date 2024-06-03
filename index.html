@@ -41,6 +41,40 @@
       </style>
     
     <body>
+
+        <script>
+            function startCountdown(targetDate, elementId) {
+                const countdownElement = document.getElementById(elementId);
+    
+                function updateCountdown() {
+                    const now = new Date();
+                    const timeDifference = targetDate - now;
+    
+                    if (timeDifference < 0) {
+                        countdownElement.innerHTML = "O evento já começou!";
+                        return;
+                    }
+    
+                    const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+    
+                    countdownElement.innerHTML = `${days} Dias ${hours} Horas ${minutes} Minutos ${seconds} Segundos`;
+                }
+    
+                updateCountdown();
+                setInterval(updateCountdown, 1000);
+            }
+    
+            window.onload = function() {
+                const targetDate = new Date("2024-06-29T14:00:00");
+                startCountdown(targetDate, "countdown1");
+                startCountdown(targetDate, "countdown2");
+                startCountdown(targetDate, "countdown3");
+                startCountdown(targetDate, "countdown4");
+            };
+        </script>
     
         
     
@@ -326,6 +360,14 @@
         margin-bottom: 1px; /* Reduzindo a margem inferior da mensagem de direitos autorais */
     }
 
+    .countdown {
+    font-size: 2em;
+    color: rgb(253, 253, 253);
+    text-align: left; /* Alinha o texto à esquerda */
+    margin-top: 20px;
+    margin-left: 2px; /* Ajuste a margem esquerda conforme necessário */
+    font-weight: bold; /* Deixa o texto em negrito */
+    }
     </style>
     
     <script>
@@ -515,10 +557,10 @@
                                                             <div class="d-flex align-items-center flex-wrap gap-xl-6 gap-3">
                                                                 <a href="https://discord.gg/qdAbWBaZ" class="btn-half-border position-relative d-inline-block py-2 px-6 bgp-1 rounded-pill"><b>Conecte-se Discord</b></a>
                                                                 <div class="active-player-list d-flex flex-wrap align-items-center gap-lg-10 gap-md-8 gap-4">
-                                                                    
-                                                                    <span class="d-block tcn-1 dot-icon cursor-scale growDown2 fs-xl ms-4 text-end">Data de Abertura após Mil Contas Criadas.</span>
+                                                                    <!-- Outros elementos podem estar aqui -->
                                                                 </div>
                                                             </div>
+                                                            <div class="countdown" id="countdown1"></div>
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-5 col-md-7">
@@ -545,7 +587,7 @@
                                                                 <a href="https://discord.gg/qdAbWBaZ" class="btn-half-border position-relative d-inline-block py-2 px-6 bgp-1 rounded-pill"><b>Conecte-se Discord</b></a>
                                                                 <div class="active-player-list d-flex flex-wrap align-items-center gap-lg-10 gap-md-8 gap-4">
                                                                     
-                                                                    <span class="d-block tcn-1 dot-icon cursor-scale growDown2 fs-xl ms-4 text-end">Data de Abertura após Mil Contas Criadas.</span>
+                                                                    <div class="countdown" id="countdown2"></div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -574,8 +616,8 @@
                                                                 <a href="https://discord.gg/qdAbWBaZ" class="btn-half-border position-relative d-inline-block py-2 px-6 bgp-1 rounded-pill"><b>Conecte-se Discord</b></a>
                                                                 <div class="active-player-list d-flex flex-wrap align-items-center gap-lg-10 gap-md-8 gap-4">
                                                                     
-    </body></html>
-                                                                    <span class="d-block tcn-1 dot-icon cursor-scale growDown2 fs-xl ms-4 text-end">Data de Abertura após Mil Contas Criadas.</span>
+
+                                                                <div class="countdown" id="countdown3"></div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -604,7 +646,7 @@
                                                                 <a href="https://discord.gg/qdAbWBaZ" class="btn-half-border position-relative d-inline-block py-2 px-6 bgp-1 rounded-pill"><b>Conecte-se Discord</b></a>
                                                                 <div class="active-player-list d-flex flex-wrap align-items-center gap-lg-10 gap-md-8 gap-4">
                                                                     
-                                                                    <span class="d-block tcn-1 dot-icon cursor-scale growDown2 fs-xl ms-4 text-end">Data de Abertura após Mil Contas Criadas.</span>
+                                                                    <div class="countdown" id="countdown4"></div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -951,4 +993,3 @@
     
     
     </body></html>
-    
