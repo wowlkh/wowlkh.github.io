@@ -440,7 +440,7 @@
         
                 $.ajax({
                     type: 'POST',
-                    url: 'https://ariongames.com.br/registro.php',
+                    url: 'http://200.9.154.32/registro.php',
                     data: formData,
                     success: function(response) {
                         // Exibe a mensagem de sucesso
@@ -757,7 +757,7 @@
                                     </div>
                                     <script>
                                         document.addEventListener("DOMContentLoaded", function() {
-                                            fetch('https://ariongames.com.br/account_count.php')
+                                            fetch('http://200.9.154.32/account_count.php')
                                                 .then(response => response.json())
                                                 .then(data => {
                                                     document.getElementById('account-count').textContent = data.count;
