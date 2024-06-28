@@ -757,7 +757,7 @@
                                     </div>
                                     <script>
                                         document.addEventListener("DOMContentLoaded", function() {
-                                            fetch('sitewowsource.zapto.org/account_count.php')
+                                            fetch('https://sitewowsource.zapto.org/account_count.php')
                                                 .then(response => response.json())
                                                 .then(data => {
                                                     document.getElementById('account-count').textContent = data.count;
