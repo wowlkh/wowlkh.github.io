@@ -440,7 +440,7 @@
         
                 $.ajax({
                     type: 'POST',
-                    url: 'http://200.9.154.32/registro.php',
+                    url: 'http://sitewowsource.zapto.org/registro.php',
                     data: formData,
                     success: function(response) {
                         // Exibe a mensagem de sucesso
@@ -757,7 +757,7 @@
                                     </div>
                                     <script>
                                         document.addEventListener("DOMContentLoaded", function() {
-                                            fetch('http://200.9.154.32/account_count.php')
+                                            fetch('http://sitewowsource.zapto.org/account_count.php')
                                                 .then(response => response.json())
                                                 .then(data => {
                                                     document.getElementById('account-count').textContent = data.count;
