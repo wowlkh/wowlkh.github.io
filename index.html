@@ -944,6 +944,67 @@
             <button class="close-confirmation" id="closeConfirmation">ENTENDI</button>
         </div>
     </div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById('registrationForm');
+    const password = document.getElementById('password');
+    const confirmPassword = document.getElementById('confirmPassword');
+    const passwordError = document.getElementById('passwordError');
+    const confirmationModal = document.getElementById('confirmationModal');
+    const closeModal = document.getElementById('closeModal');
+
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        if (password.value !== confirmPassword.value) {
+            passwordError.textContent = 'As senhas não coincidem.';
+            return;
+        } else {
+            passwordError.textContent = '';
+        }
+
+        const username = document.getElementById('username').value.trim();
+        const userpass = password.value.trim();
+
+        // Envio via fetch AJAX para o reg.php
+        fetch('https://voice.heroesofwow.com/reg.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username: username,
+                password: userpass
+            })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Erro ao enviar para o servidor.");
+            }
+            return response.text();
+        })
+        .then(data => {
+            console.log("Resposta do servidor:", data);
+            confirmationModal.style.display = 'flex';
+            form.reset(); // Limpa o formulário
+        })
+        .catch(error => {
+            console.error('Erro:', error);
+            alert("Ocorreu um erro no registro. Tente novamente.");
+        });
+    });
+
+    closeModal.addEventListener('click', function () {
+        confirmationModal.style.display = 'none';
+    });
+
+    window.addEventListener('click', function (e) {
+        if (e.target === confirmationModal) {
+            confirmationModal.style.display = 'none';
+        }
+    });
+});
+</script>
 
     <script>
         // Configuração do Countdown
