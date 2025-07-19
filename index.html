@@ -1,174 +1,1089 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html> 
+<html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="generator" content="Mobirise v5.9.0, mobirise.com">
-  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-  <link rel="shortcut icon" href="assets/images/49807-3.png" type="image/x-icon">
-  <meta name="description" content="">
-  <title>WoW Source - MOP 5.4.8</title>
-  <link rel="stylesheet" href="assets/web/assets/mobirise-icons2/mobirise2.css">
-  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-grid.min.css">
-  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-reboot.min.css">
-  <link rel="stylesheet" href="assets/parallax/jarallax.css">
-  <link rel="stylesheet" href="assets/dropdown/css/style.css">
-  <link rel="stylesheet" href="assets/theme/css/style.css">
-  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;700&display=swap"></noscript>
-  <link rel="preload" as="style" href="assets/mobirise/css/mbr-additional.css">
-  <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
-  <style>
-    .floating-buttons {
-      position: absolute;
-      top: -10%; /* Ajuste a posição para separar mais dos botões */
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 10px;
-      z-index: 1000;
-    }
-    .floating-buttons a {
-      display: inline-block;
-      padding: 15px 30px;
-      border-radius: 50px;
-      background: #ff6f61; /* Cor de fundo moderna */
-      color: #fff;
-      text-decoration: none;
-      font-size: 16px;
-      font-weight: bold;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      transition: background 0.3s, transform 0.3s;
-    }
-    .floating-buttons a:hover {
-      background: #ff3d2e; /* Cor de fundo no hover */
-      transform: translateY(-5px);
-    }
-    .floating-buttons a:nth-child(2) {
-      background: #4caf50; /* Outra cor de fundo moderna */
-    }
-    .floating-buttons a:nth-child(2):hover {
-      background: #388e3c; /* Cor de fundo no hover */
-    }
-    .title-container {
-      text-align: center;
-      position: relative;
-      margin-bottom: 80px; /* Adiciona mais espaço abaixo do título */
-    }
-    .mbr-section-subtitle {
-      margin-top: 20px; /* Adiciona espaço acima da frase */
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Novo Reino - World of Warcraft</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --alliance: #4b8bd1;
+            --horde: #c41e3a;
+            --gold: #ffd700;
+            --dark: #0a0a12;
+            --darker: #050507;
+            --parchment: #f0e6d2;
+            --alliance-light: #6ba8e9;
+            --horde-light: #e63950;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: url('https://wallpapercave.com/wp/1iwMJam.jpg') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            color: var(--parchment);
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 40px;
+            perspective: 1000px;
+        }
+
+        .logo img {
+            max-width: 500px;
+            width: 100%;
+            transition: transform 0.5s ease;
+            transform-style: preserve-3d;
+        }
+
+        .logo img:hover {
+            transform: rotateY(15deg) scale(1.05);
+        }
+
+        .faction-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 40px;
+            perspective: 1000px;
+        }
+
+        .faction-btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transform-style: preserve-3d;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .faction-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .alliance-btn {
+            background-color: var(--alliance);
+            color: white;
+        }
+
+        .horde-btn {
+            background-color: var(--horde);
+            color: white;
+        }
+
+        .faction-btn:hover {
+            transform: translateY(-5px) rotateX(10deg);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+        }
+
+        .faction-btn:hover::before {
+            left: 100%;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 60px;
+            perspective: 1000px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: var(--gold);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            font-family: 'Times New Roman', serif;
+            letter-spacing: 2px;
+            transition: all 0.5s ease;
+            transform-style: preserve-3d;
+            display: inline-block;
+        }
+
+        .hero h1:hover {
+            transform: rotateY(10deg);
+            text-shadow: 0 0 10px var(--gold);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            line-height: 1.6;
+        }
+
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 60px;
+            perspective: 1000px;
+        }
+
+        .countdown-item {
+            background: rgba(0,0,0,0.7);
+            border: 1px solid var(--gold);
+            border-radius: 8px;
+            padding: 25px 20px;
+            min-width: 100px;
+            text-align: center;
+            transform-style: preserve-3d;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .countdown-item::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--gold);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.5s ease;
+        }
+
+        .countdown-item:hover {
+            transform: translateY(-10px) rotateX(10deg);
+            box-shadow: 0 10px 20px rgba(255,215,0,0.2);
+        }
+
+        .countdown-item:hover::before {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .countdown-number {
+            font-size: 2.8rem;
+            font-weight: bold;
+            color: var(--gold);
+            line-height: 1;
+        }
+
+        .countdown-label {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 5px;
+            color: var(--parchment);
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+            perspective: 1000px;
+        }
+
+        .feature-card {
+            background: rgba(0,0,0,0.7);
+            border: 1px solid rgba(255,215,0,0.3);
+            border-radius: 8px;
+            padding: 30px;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px) rotateX(5deg) rotateY(5deg) scale(1.03);
+            border-color: var(--gold);
+            box-shadow: 0 15px 30px rgba(255,215,0,0.2);
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,215,0,0.1), transparent);
+            z-index: -1;
+        }
+
+        .feature-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gold);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.5s ease;
+        }
+
+        .feature-card:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--gold);
+            margin-bottom: 20px;
+            transition: all 0.5s ease;
+            display: inline-block;
+            transform-style: preserve-3d;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: rotateY(180deg) translateZ(20px);
+            color: white;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            color: var(--gold);
+            margin-bottom: 15px;
+            font-family: 'Times New Roman', serif;
+            position: relative;
+            display: inline-block;
+            transform-style: preserve-3d;
+        }
+
+        .feature-card h3::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--gold);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover h3 {
+            text-shadow: 0 0 10px rgba(255,215,0,0.5);
+        }
+
+        .feature-card:hover h3::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .feature-card p {
+            line-height: 1.6;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover p {
+            color: white;
+            transform: translateZ(10px);
+        }
+
+        .cta-section {
+            text-align: center;
+            margin-top: 60px;
+            padding: 40px;
+            background: rgba(0,0,0,0.7);
+            border: 1px solid var(--gold);
+            border-radius: 8px;
+            transform-style: preserve-3d;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,215,0,0.1) 0%, transparent 70%);
+            transform: rotate(0deg);
+            transition: transform 1s linear;
+        }
+
+        .cta-section:hover {
+            transform: translateY(-5px) rotateX(3deg);
+            box-shadow: 0 10px 30px rgba(255,215,0,0.3);
+        }
+
+        .cta-section:hover::before {
+            transform: rotate(180deg);
+        }
+
+        .cta-button {
+            background: linear-gradient(to right, var(--alliance), var(--horde));
+            color: white;
+            border: none;
+            padding: 16px 40px;
+            font-size: 1.2rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            font-weight: bold;
+            margin-top: 20px;
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: 0.5s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px) rotateX(10deg) scale(1.05);
+            box-shadow: 0 10px 25px rgba(255,215,0,0.5);
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        /* Estilo do Formulário de Registro */
+        .registration-container {
+            max-width: 800px;
+            margin: 60px auto;
+            padding: 40px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid var(--gold);
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .registration-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 215, 0, 0.05), transparent);
+            z-index: -1;
+        }
+
+        .registration-container:hover {
+            transform: translateY(-10px) rotateX(5deg);
+            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.3);
+        }
+
+        .registration-header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .registration-header h2 {
+            font-size: 2.5rem;
+            color: var(--gold);
+            font-family: 'Times New Roman', serif;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+            margin-bottom: 15px;
+            transform-style: preserve-3d;
+            transition: all 0.5s ease;
+            display: inline-block;
+        }
+
+        .registration-header h2:hover {
+            transform: rotateY(15deg);
+        }
+
+        .registration-header p {
+            color: var(--parchment);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .registration-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            transform-style: preserve-3d;
+            position: relative;
+        }
+
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--gold);
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
+        }
+
+        .form-group:hover label {
+            transform: translateX(10px) translateZ(5px);
+            color: white;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 5px;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            font-size: 1rem;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+            transform: translateZ(10px);
+        }
+
+        .faction-selection {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .faction-option {
+            flex: 1;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid transparent;
+        }
+
+        .faction-option::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: translateX(-100%);
+            transition: 0.5s;
+        }
+
+        .faction-option:hover::before {
+            transform: translateX(100%);
+        }
+
+        .faction-option.alliance {
+            border-color: var(--alliance);
+        }
+
+        .faction-option.horde {
+            border-color: var(--horde);
+        }
+
+        .faction-option.selected {
+            transform: translateY(-10px) translateZ(10px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        }
+
+        .faction-option.selected.alliance {
+            background: linear-gradient(to bottom, rgba(75, 139, 209, 0.2), transparent);
+            border-color: var(--alliance-light);
+        }
+
+        .faction-option.selected.horde {
+            background: linear-gradient(to bottom, rgba(196, 30, 58, 0.2), transparent);
+            border-color: var(--horde-light);
+        }
+
+        .faction-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            transition: all 0.5s ease;
+        }
+
+        .faction-option.alliance .faction-icon {
+            color: var(--alliance);
+        }
+
+        .faction-option.horde .faction-icon {
+            color: var(--horde);
+        }
+
+        .faction-option.selected .faction-icon {
+            transform: rotateY(180deg) scale(1.2);
+        }
+
+        .faction-option h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .faction-option.alliance h3 {
+            color: var(--alliance);
+        }
+
+        .faction-option.horde h3 {
+            color: var(--horde);
+        }
+
+        .faction-option.selected h3 {
+            color: white;
+            text-shadow: 0 0 10px currentColor;
+        }
+
+        .faction-option p {
+            font-size: 0.9rem;
+            color: var(--parchment);
+            transition: all 0.3s ease;
+        }
+
+        .faction-option.selected p {
+            color: white;
+        }
+
+        .submit-container {
+            grid-column: span 2;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .submit-btn {
+            background: linear-gradient(to right, var(--alliance), var(--horde));
+            color: white;
+            border: none;
+            padding: 18px 50px;
+            font-size: 1.2rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: 0.5s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-5px) rotateX(10deg) scale(1.05);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.5);
+        }
+
+        .submit-btn:hover::before {
+            left: 100%;
+        }
+
+        .form-footer {
+            text-align: center;
+            margin-top: 30px;
+            color: rgba(240, 230, 210, 0.7);
+            font-size: 0.9rem;
+            grid-column: span 2;
+        }
+
+        /* Modal de Confirmação */
+        .confirmation-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            perspective: 1000px;
+        }
+
+        .confirmation-content {
+            background: linear-gradient(145deg, #1a1a2e, #16213e);
+            padding: 40px;
+            border: 2px solid var(--gold);
+            border-radius: 10px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            transform-style: preserve-3d;
+            animation: modalAppear 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes modalAppear {
+            from {
+                opacity: 0;
+                transform: translateY(-50px) rotateX(45deg);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) rotateX(0);
+            }
+        }
+
+        .confirmation-content::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.1) 0%, transparent 70%);
+            animation: rotateGradient 15s linear infinite;
+        }
+
+        @keyframes rotateGradient {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .confirmation-icon {
+            font-size: 4rem;
+            color: var(--gold);
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .confirmation-content h2 {
+            color: var(--gold);
+            font-size: 2rem;
+            margin-bottom: 20px;
+            font-family: 'Times New Roman', serif;
+        }
+
+        .confirmation-content p {
+            color: var(--parchment);
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .close-confirmation {
+            background: var(--gold);
+            color: #0a0a12;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .close-confirmation:hover {
+            background: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.5);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .countdown {
+                flex-wrap: wrap;
+            }
+
+            .countdown-item {
+                min-width: 70px;
+                padding: 15px 10px;
+            }
+
+            .countdown-number {
+                font-size: 2rem;
+            }
+
+            .faction-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .logo img {
+                max-width: 350px;
+            }
+
+            .registration-form {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full-width {
+                grid-column: span 1;
+            }
+
+            .submit-container {
+                grid-column: span 1;
+            }
+
+            .faction-selection {
+                flex-direction: column;
+            }
+        }
+    </style>
 </head>
 <body>
-
-  <section data-bs-version="5.1" class="countdown2 cid-uikGeHawNI mbr-parallax-background" id="countdown2-5">
-    <div class="mbr-overlay" style="opacity: 0.8; background-color: rgb(0, 0, 0);"></div>
     <div class="container">
-      <div class="floating-buttons">
-        <a class="btn btn-danger display-4" href="registro.html">CRIAR CONTA</a>
-        <a class="btn btn-danger display-4" href="https://mega.nz/file/MdpVwaxT#It-S_cCflKI1XWDdfjyK67PoU4M8mlOVgRGFxoXcgm8">DOWNLOAD</a>
-        <a class="btn btn-danger display-4" href="https://discord.com/invite/G6QUN7E4N5">DISCORD</a>
-      </div>
-      <div class="row justify-content-center">
-        <div class="col-lg-8 title-container">
-          <h4 class="mbr-section-title mb-5 align-center mbr-fonts-style display-2">
-            <strong>WOW SOURCE <br> MISTS OF PANDARIA 5.4.8</strong>
-          </h4>
-          <h4 class="mbr-section-subtitle mb-5 align-center mbr-fonts-style display-7">
-            <b>Juntos, somos Pandária. Divididos, caímos. - Taran Zhu</b>
-          </h4>
-          <p class="mbr-text mb-5 align-center mbr-fonts-style display-7">
-            <b>SET REALMLIST 102.165.46.138:3725</b>
-          </p>
+        <div class="logo">
+            <img src="https://i.imgur.com/uGbDauS.png" alt="World of Warcraft">
         </div>
-      </div>
+
+        <section class="hero">
+            <h1>UM NOVO REINO DE ANTARES TE AGUARDA...</h1>
+            <p>Em 30 de agosto às 18h, um novo mundo se abrirá. Prepare-se para explorar terras inóspitas, enfrentar desafios épicos e escrever sua lenda neste novo reino de <b>Wrath of the Lich King</b>.</p>
+
+            <div class="countdown">
+                <div class="countdown-item"><div class="countdown-number" id="days">00</div><div class="countdown-label">Dias</div></div>
+                <div class="countdown-item"><div class="countdown-number" id="hours">00</div><div class="countdown-label">Horas</div></div>
+                <div class="countdown-item"><div class="countdown-number" id="minutes">00</div><div class="countdown-label">Minutos</div></div>
+                <div class="countdown-item"><div class="countdown-number" id="seconds">00</div><div class="countdown-label">Segundos</div></div>
+            </div>
+        </section>
+
+        <div class="features">
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-map-marked-alt"></i></div>
+                <h3>Terras Inexploradas</h3>
+                <p>Aventure-se por um novo continente repleto de mistérios, onde cada zona reserva desafios únicos, histórias envolventes e tesouros lendários.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-dungeon"></i></div>
+                <h3>Conteúdo 99%</h3>
+                <p>Enfrente desafios em masmorras e raids com mecânicas incriveis sem BUGS e chefes desafiadores que testarão suas habilidades.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-users"></i></div>
+                <h3>Loja nova</h3>
+                <p>Uma nova loja, que voce vai amar, moderna com um visual elegante.</p>
+            </div>
+        </div>
+
+        <!-- Seção de Registro Integrada -->
+        <div class="registration-container">
+            <div class="registration-header">
+                <h2><i class="fas fa-scroll"></i> REGISTRO PARA O REINO - PARA QUEM NAO TEM CONTA!</h2>
+                <p>Junte-se à batalha e garanta seu lugar no Reino de Antares. Preencha o formulário abaixo nos descrevendo facção e classe que você vai jogar.</p>
+            </div>
+
+            <form id="registrationForm" class="registration-form">
+                <div class="faction-selection">
+                    <div class="faction-option alliance" id="allianceOption">
+                        <div class="faction-icon"><i class="fas fa-skull"></i></div>
+                        <h3>Aliança</h3>
+                        <p>Junte-se aos nobres defensores de Azeroth</p>
+                        <input type="radio" name="faction" id="alliance" value="alliance" hidden>
+                    </div>
+                    <div class="faction-option horde" id="hordeOption">
+                        <div class="faction-icon"><i class="fas fa-skull"></i></div>
+                        <h3>Horda</h3>
+                        <p>Lute pela liberdade e honra</p>
+                        <input type="radio" name="faction" id="horde" value="horde" hidden>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="username">Login:</label>
+                    <input type="text" id="username" name="username" required placeholder="Crie o login da conta">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">E-mail:</label>
+                    <input type="email" id="email" name="email" required placeholder="seu@email.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Senha:</label>
+                    <input type="password" id="password" name="password" required placeholder="Crie uma senha segura">
+                </div>
+
+                <div class="form-group">
+                    <label for="confirmPassword">Confirme a Senha:</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Repita sua senha">
+                </div>
+
+                <div class="form-group">
+                    <label for="race">Raça:</label>
+                    <select id="race" name="race" required>
+                        <option value="" disabled selected>Selecione sua raça</option>
+                        <option value="human">Humano</option>
+                        <option value="dwarf">Anão</option>
+                        <option value="nightelf">Elfo Noturno</option>
+                        <option value="gnome">Gnomo</option>
+                        <option value="draenei">Draenei</option>
+                        <option value="orc">Orc</option>
+                        <option value="undead">Renegado</option>
+                        <option value="tauren">Tauren</option>
+                        <option value="troll">Troll</option>
+                        <option value="bloodelf">Elfo Sangrento</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="class">Classe:</label>
+                    <select id="class" name="class" required>
+                        <option value="" disabled selected>Escolha sua classe</option>
+                        <option value="warrior">Guerreiro</option>
+                        <option value="paladin">Paladino</option>
+                        <option value="hunter">Caçador</option>
+                        <option value="rogue">Ladino</option>
+                        <option value="priest">Sacerdote</option>
+                        <option value="mage">Mago</option>
+                        <option value="warlock">Bruxo</option>
+                        <option value="druid">Druida</option>
+                    </select>
+                </div>
+
+                <div class="form-group full-width">
+                    <label for="characterBio">Biografia do Personagem (opcional):</label>
+                    <textarea id="characterBio" name="characterBio" rows="3" placeholder="Conte-nos sobre seu personagem..."></textarea>
+                </div>
+
+                <div class="submit-container">
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-dragon"></i> COMPLETAR REGISTRO
+                    </button>
+                </div>
+
+            
+		
+
+     
+
+    <!-- Modal de Confirmação -->
+    <div id="confirmationModal" class="confirmation-modal">
+        <div class="confirmation-content">
+            <div class="confirmation-icon"><i class="fas fa-check-circle"></i></div>
+            <h2>REGISTRO CONCLUÍDO!</h2>
+            <p>Seu registro para o Reino de Antares foi realizado com sucesso. Um e-mail de confirmação foi enviado para sua caixa de entrada.</p>
+            <p>Prepare-se para a jornada que começa em <strong id="launchDate"></strong>!</p>
+            <button class="close-confirmation" id="closeConfirmation">ENTENDI</button>
+        </div>
     </div>
-  </section>
 
-  <section data-bs-version="5.1" class="features15 cid-uikwFr78o5" id="features015-2">
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="item features-without-image col-12 col-lg-4 active">
-          <div class="item-wrapper">
-            <div class="img-wrapper">
-              <img src="assets/images/instagram.png" alt="Mobirise Website Builder" data-slide-to="0" data-bs-slide-to="0">
-            </div>
-            <div class="card-box">
-              <h4 class="card-title mbr-fonts-style mb-3 display-7"><strong>CONHECE-NOS?</strong></h4>
-              <h5 class="card-text mbr-fonts-style display-7">
-                Venha fazer parte da nossa história.
-              </h5>
-            </div>
-          </div>
-        </div>
-        <div class="item features-without-image col-12 col-lg-4">
-          <div class="item-wrapper">
-            <div class="img-wrapper">
-              <img src="assets/images/74287a9b0dca76f3bde996522526641e-removebg-preview.png" alt="Mobirise Website Builder" data-slide-to="1" data-bs-slide-to="1">
-            </div>
-            <div class="card-box">
-              <h4 class="card-title mbr-fonts-style mb-3 display-7"><strong>NOVA CLASSE</strong></h4>
-              <h5 class="card-text mbr-fonts-style display-7">
-                Venha se aventurar em Pandária
-              </h5>
-            </div>
-          </div>
-        </div>
-        <div class="item features-without-image col-12 col-lg-4">
-          <div class="item-wrapper">
-            <div class="img-wrapper">
-              <img src="assets/images/team-logo-4-removebg-preview.png" alt="Mobirise Website Builder">
-            </div>
-            <div class="card-box">
-              <h4 class="card-title mbr-fonts-style mb-3 display-7"><strong>UPDATES</strong></h4>
-              <h5 class="card-text mbr-fonts-style display-7">Servidor estável<br>Mecânicas perfeitas.</h5>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+    <script>
+        // Configuração do Countdown
+        const countdownDate = new Date("August 30, 2025 18:00:00").getTime();
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = countdownDate - now;
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-  <script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/parallax/jarallax.js"></script>
-  <script src="assets/smoothscroll/smooth-scroll.js"></script>
-  <script src="assets/ytplayer/index.js"></script>
-  <script src="assets/dropdown/js/navbar-dropdown.js"></script>
-  <script src="assets/countdown/countdown.js"></script>
-  <script src="assets/theme/js/script.js"></script>
-  <script src="assets/formoid/formoid.min.js"></script>
+            document.getElementById("days").innerHTML = String(days).padStart(2, '0');
+            document.getElementById("hours").innerHTML = String(hours).padStart(2, '0');
+            document.getElementById("minutes").innerHTML = String(minutes).padStart(2, '0');
+            document.getElementById("seconds").innerHTML = String(seconds).padStart(2, '0');
 
-  <script>
-    function updateCountdown() {
-      const countdownElement = document.querySelector('.countdown');
-      const targetDate = new Date(countdownElement.getAttribute('data-due-date') + ' GMT-0300'); // Ajusta o fuso horário de Brasília
+            if (distance < 0) {
+                clearInterval(countdownInterval);
+                document.querySelector(".countdown").innerHTML = "<h2 style='color:var(--gold)'>O REINO DE ANTARES ESTÁ ABERTO!</h2>";
+            }
+        }
 
-      const now = new Date();
-      const timeDifference = targetDate - now;
+        const countdownInterval = setInterval(updateCountdown, 1000);
+        updateCountdown();
 
-      if (timeDifference <= 0) {
-        countdownElement.querySelector('.daysCountdown').textContent = '0';
-        countdownElement.querySelector('.hoursCountdown').textContent = '0';
-        countdownElement.querySelector('.minutesCountdown').textContent = '0';
-        countdownElement.querySelector('.secondsCountdown').textContent = '0';
-        return;
-      }
+        // Seleção de Facção
+        const allianceOption = document.getElementById('allianceOption');
+        const hordeOption = document.getElementById('hordeOption');
+        const allianceRadio = document.getElementById('alliance');
+        const hordeRadio = document.getElementById('horde');
 
-      const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+        allianceOption.addEventListener('click', function() {
+            allianceOption.classList.add('selected');
+            hordeOption.classList.remove('selected');
+            allianceRadio.checked = true;
+        });
 
-      countdownElement.querySelector('.daysCountdown').textContent = days;
-      countdownElement.querySelector('.hoursCountdown').textContent = hours;
-      countdownElement.querySelector('.minutesCountdown').textContent = minutes;
-      countdownElement.querySelector('.secondsCountdown').textContent = seconds;
-    }
+        hordeOption.addEventListener('click', function() {
+            hordeOption.classList.add('selected');
+            allianceOption.classList.remove('selected');
+            hordeRadio.checked = true;
+        });
 
-    setInterval(updateCountdown, 1000);
-  </script>
+        // Formulário de Registro
+        const form = document.getElementById('registrationForm');
+        const confirmationModal = document.getElementById('confirmationModal');
+        const closeConfirmation = document.getElementById('closeConfirmation');
+        const launchDateElement = document.getElementById('launchDate');
 
+        // Formatando a data de lançamento para exibição
+        const launchDate = new Date(countdownDate);
+        const options = { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' };
+        launchDateElement.textContent = launchDate.toLocaleDateString('pt-BR', options);
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const factionSelected = document.querySelector('input[name="faction"]:checked');
+            
+            if (!factionSelected) {
+                alert('Por favor, selecione uma facção!');
+                return;
+            }
+            
+            if (password !== confirmPassword) {
+                alert('As senhas não coincidem!');
+                return;
+            }
+            
+            if (password.length < 8) {
+                alert('A senha deve ter pelo menos 8 caracteres!');
+                return;
+            }
+            
+            // Simulação de registro bem-sucedido
+            confirmationModal.style.display = 'flex';
+        });
+
+        closeConfirmation.addEventListener('click', function() {
+            confirmationModal.style.display = 'none';
+            form.reset();
+            allianceOption.classList.remove('selected');
+            hordeOption.classList.remove('selected');
+        });
+
+        // Fechar modal ao clicar fora
+        window.addEventListener('click', function(event) {
+            if (event.target === confirmationModal) {
+                confirmationModal.style.display = 'none';
+            }
+        });
+
+        // Efeito de hover nos campos do formulário
+        const formGroups = document.querySelectorAll('.form-group');
+        formGroups.forEach(group => {
+            const input = group.querySelector('input, select, textarea');
+            
+            if (input) {
+                input.addEventListener('focus', function() {
+                    group.querySelector('label').style.color = 'white';
+                    group.querySelector('label').style.textShadow = '0 0 10px var(--gold)';
+                });
+                
+                input.addEventListener('blur', function() {
+                    if (!input.value) {
+                        group.querySelector('label').style.color = 'var(--gold)';
+                        group.querySelector('label').style.textShadow = 'none';
+                    }
+                });
+            }
+        });
+
+        // Envia dados via AJAX
+const username = document.getElementById('username').value;
+const password = document.getElementById('password').value;
+
+fetch('https://voice.heroesofwow.com/reg.php', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        username: username,
+        password: password
+    })
+})
+.then(response => response.text())
+.then(data => {
+    console.log('Resposta do servidor:', data);
+    // Mostra modal de sucesso
+    confirmationModal.style.display = 'flex';
+})
+.catch(error => {
+    console.error('Erro ao enviar:', error);
+    alert('Ocorreu um erro no registro. Tente novamente.');
+});
+
+    </script>
 </body>
 </html>
