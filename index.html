@@ -944,207 +944,141 @@
             <button class="close-confirmation" id="closeConfirmation">ENTENDI</button>
         </div>
     </div>
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    const form = document.getElementById('registrationForm');
-    const password = document.getElementById('password');
-    const confirmPassword = document.getElementById('confirmPassword');
-    const passwordError = document.getElementById('passwordError');
-    const confirmationModal = document.getElementById('confirmationModal');
-    const closeModal = document.getElementById('closeModal');
 
-    form.addEventListener('submit', function (e) {
-        e.preventDefault();
+    <script>
+// Configuração do Countdown
+const countdownDate = new Date("August 30, 2025 18:00:00").getTime();
+function updateCountdown() {
+    const now = new Date().getTime();
+    const distance = countdownDate - now;
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-        if (password.value !== confirmPassword.value) {
-            passwordError.textContent = 'As senhas não coincidem.';
-            return;
-        } else {
-            passwordError.textContent = '';
-        }
+    document.getElementById("days").innerHTML = String(days).padStart(2, '0');
+    document.getElementById("hours").innerHTML = String(hours).padStart(2, '0');
+    document.getElementById("minutes").innerHTML = String(minutes).padStart(2, '0');
+    document.getElementById("seconds").innerHTML = String(seconds).padStart(2, '0');
 
-        const username = document.getElementById('username').value.trim();
-        const userpass = password.value.trim();
+    if (distance < 0) {
+        clearInterval(countdownInterval);
+        document.querySelector(".countdown").innerHTML = "<h2 style='color:var(--gold)'>O REINO DE ANTARES ESTÁ ABERTO!</h2>";
+    }
+}
+const countdownInterval = setInterval(updateCountdown, 1000);
+updateCountdown();
 
-        // Envio via fetch AJAX para o reg.php
-        fetch('https://voice.heroesofwow.com/reg.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                username: username,
-                password: userpass
-            })
+// Seleção de Facção
+const allianceOption = document.getElementById('allianceOption');
+const hordeOption = document.getElementById('hordeOption');
+const allianceRadio = document.getElementById('alliance');
+const hordeRadio = document.getElementById('horde');
+
+allianceOption.addEventListener('click', function() {
+    allianceOption.classList.add('selected');
+    hordeOption.classList.remove('selected');
+    allianceRadio.checked = true;
+});
+
+hordeOption.addEventListener('click', function() {
+    hordeOption.classList.add('selected');
+    allianceOption.classList.remove('selected');
+    hordeRadio.checked = true;
+});
+
+// Formulário de Registro
+const form = document.getElementById('registrationForm');
+const confirmationModal = document.getElementById('confirmationModal');
+const closeConfirmation = document.getElementById('closeConfirmation');
+const launchDateElement = document.getElementById('launchDate');
+
+// Formatando a data de lançamento para exibição
+const launchDate = new Date(countdownDate);
+const options = { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' };
+launchDateElement.textContent = launchDate.toLocaleDateString('pt-BR', options);
+
+// Evento de envio do formulário
+form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('confirmPassword').value;
+    const factionSelected = document.querySelector('input[name="faction"]:checked');
+
+    if (!factionSelected) {
+        alert('Por favor, selecione uma facção!');
+        return;
+    }
+
+    if (password !== confirmPassword) {
+        alert('As senhas não coincidem!');
+        return;
+    }
+
+    if (password.length < 8) {
+        alert('A senha deve ter pelo menos 8 caracteres!');
+        return;
+    }
+
+    // Envia os dados via AJAX para o reg.php
+    fetch('https://voice.heroesofwow.com/reg.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            username: username,
+            password: password
         })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error("Erro ao enviar para o servidor.");
-            }
-            return response.text();
-        })
-        .then(data => {
-            console.log("Resposta do servidor:", data);
-            confirmationModal.style.display = 'flex';
-            form.reset(); // Limpa o formulário
-        })
-        .catch(error => {
-            console.error('Erro:', error);
-            alert("Ocorreu um erro no registro. Tente novamente.");
-        });
+    })
+    .then(response => response.text())
+    .then(data => {
+        console.log('Resposta do servidor:', data);
+        confirmationModal.style.display = 'flex';
+    })
+    .catch(error => {
+        console.error('Erro ao enviar:', error);
+        alert('Ocorreu um erro no registro. Tente novamente.');
     });
+});
 
-    closeModal.addEventListener('click', function () {
+// Fecha o modal
+closeConfirmation.addEventListener('click', function() {
+    confirmationModal.style.display = 'none';
+    form.reset();
+    allianceOption.classList.remove('selected');
+    hordeOption.classList.remove('selected');
+});
+
+// Fecha o modal ao clicar fora
+window.addEventListener('click', function(event) {
+    if (event.target === confirmationModal) {
         confirmationModal.style.display = 'none';
-    });
+    }
+});
 
-    window.addEventListener('click', function (e) {
-        if (e.target === confirmationModal) {
-            confirmationModal.style.display = 'none';
-        }
-    });
+// Efeito de hover nos campos do formulário
+const formGroups = document.querySelectorAll('.form-group');
+formGroups.forEach(group => {
+    const input = group.querySelector('input, select, textarea');
+
+    if (input) {
+        input.addEventListener('focus', function() {
+            group.querySelector('label').style.color = 'white';
+            group.querySelector('label').style.textShadow = '0 0 10px var(--gold)';
+        });
+
+        input.addEventListener('blur', function() {
+            if (!input.value) {
+                group.querySelector('label').style.color = 'var(--gold)';
+                group.querySelector('label').style.textShadow = 'none';
+            }
+        });
+    }
 });
 </script>
 
-    <script>
-        // Configuração do Countdown
-        const countdownDate = new Date("August 30, 2025 18:00:00").getTime();
-        function updateCountdown() {
-            const now = new Date().getTime();
-            const distance = countdownDate - now;
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            document.getElementById("days").innerHTML = String(days).padStart(2, '0');
-            document.getElementById("hours").innerHTML = String(hours).padStart(2, '0');
-            document.getElementById("minutes").innerHTML = String(minutes).padStart(2, '0');
-            document.getElementById("seconds").innerHTML = String(seconds).padStart(2, '0');
-
-            if (distance < 0) {
-                clearInterval(countdownInterval);
-                document.querySelector(".countdown").innerHTML = "<h2 style='color:var(--gold)'>O REINO DE ANTARES ESTÁ ABERTO!</h2>";
-            }
-        }
-
-        const countdownInterval = setInterval(updateCountdown, 1000);
-        updateCountdown();
-
-        // Seleção de Facção
-        const allianceOption = document.getElementById('allianceOption');
-        const hordeOption = document.getElementById('hordeOption');
-        const allianceRadio = document.getElementById('alliance');
-        const hordeRadio = document.getElementById('horde');
-
-        allianceOption.addEventListener('click', function() {
-            allianceOption.classList.add('selected');
-            hordeOption.classList.remove('selected');
-            allianceRadio.checked = true;
-        });
-
-        hordeOption.addEventListener('click', function() {
-            hordeOption.classList.add('selected');
-            allianceOption.classList.remove('selected');
-            hordeRadio.checked = true;
-        });
-
-        // Formulário de Registro
-        const form = document.getElementById('registrationForm');
-        const confirmationModal = document.getElementById('confirmationModal');
-        const closeConfirmation = document.getElementById('closeConfirmation');
-        const launchDateElement = document.getElementById('launchDate');
-
-        // Formatando a data de lançamento para exibição
-        const launchDate = new Date(countdownDate);
-        const options = { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' };
-        launchDateElement.textContent = launchDate.toLocaleDateString('pt-BR', options);
-
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-            const factionSelected = document.querySelector('input[name="faction"]:checked');
-            
-            if (!factionSelected) {
-                alert('Por favor, selecione uma facção!');
-                return;
-            }
-            
-            if (password !== confirmPassword) {
-                alert('As senhas não coincidem!');
-                return;
-            }
-            
-            if (password.length < 8) {
-                alert('A senha deve ter pelo menos 8 caracteres!');
-                return;
-            }
-            
-            // Simulação de registro bem-sucedido
-            confirmationModal.style.display = 'flex';
-        });
-
-        closeConfirmation.addEventListener('click', function() {
-            confirmationModal.style.display = 'none';
-            form.reset();
-            allianceOption.classList.remove('selected');
-            hordeOption.classList.remove('selected');
-        });
-
-        // Fechar modal ao clicar fora
-        window.addEventListener('click', function(event) {
-            if (event.target === confirmationModal) {
-                confirmationModal.style.display = 'none';
-            }
-        });
-
-        // Efeito de hover nos campos do formulário
-        const formGroups = document.querySelectorAll('.form-group');
-        formGroups.forEach(group => {
-            const input = group.querySelector('input, select, textarea');
-            
-            if (input) {
-                input.addEventListener('focus', function() {
-                    group.querySelector('label').style.color = 'white';
-                    group.querySelector('label').style.textShadow = '0 0 10px var(--gold)';
-                });
-                
-                input.addEventListener('blur', function() {
-                    if (!input.value) {
-                        group.querySelector('label').style.color = 'var(--gold)';
-                        group.querySelector('label').style.textShadow = 'none';
-                    }
-                });
-            }
-        });
-
-        // Envia dados via AJAX
-const username = document.getElementById('username').value;
-const password = document.getElementById('password').value;
-
-fetch('https://voice.heroesofwow.com/reg.php', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-        username: username,
-        password: password
-    })
-})
-.then(response => response.text())
-.then(data => {
-    console.log('Resposta do servidor:', data);
-    // Mostra modal de sucesso
-    confirmationModal.style.display = 'flex';
-})
-.catch(error => {
-    console.error('Erro ao enviar:', error);
-    alert('Ocorreu um erro no registro. Tente novamente.');
-});
-
-    </script>
 </body>
 </html>
