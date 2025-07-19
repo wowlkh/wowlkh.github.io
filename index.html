@@ -939,13 +939,44 @@
         <div class="confirmation-content">
             <div class="confirmation-icon"><i class="fas fa-check-circle"></i></div>
             <h2>REGISTRO CONCLUÍDO!</h2>
-            <p>Seu registro para o Reino de Antares foi realizado com sucesso. Um e-mail de confirmação foi enviado para sua caixa de entrada.</p>
+            <p>Seu registro para o Reino de Antares foi realizado com sucesso.</p>
             <p>Prepare-se para a jornada que começa em <strong id="launchDate"></strong>!</p>
-            <button class="close-confirmation" id="closeConfirmation">ENTENDI</button>
+            <button class="close-confirmation" id="closeConfirmation">Entendido!</button>
+
         </div>
     </div>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const confirmationModal = document.getElementById('confirmationModal');
+    const closeConfirmation = document.getElementById('closeConfirmation');
 
-    <script>
+    // Fecha o modal ao clicar no botão "Entendi"
+    closeConfirmation.addEventListener('click', function () {
+      confirmationModal.style.display = 'none';
+
+      // Se quiser resetar o formulário e remover seleções:
+      const form = document.getElementById('registrationForm');
+      if (form) {
+        form.reset();
+      }
+
+      const allianceOption = document.getElementById('allianceOption');
+      const hordeOption = document.getElementById('hordeOption');
+
+      if (allianceOption) allianceOption.classList.remove('selected');
+      if (hordeOption) hordeOption.classList.remove('selected');
+    });
+
+    // Fecha o modal se clicar fora dele
+    window.addEventListener('click', function (event) {
+      if (event.target === confirmationModal) {
+        confirmationModal.style.display = 'none';
+      }
+    });
+  });
+</script>
+
+<script>
 // Configuração do Countdown
 const countdownDate = new Date("August 30, 2025 18:00:00").getTime();
 function updateCountdown() {
@@ -1002,7 +1033,7 @@ launchDateElement.textContent = launchDate.toLocaleDateString('pt-BR', options);
 form.addEventListener('submit', function(e) {
     e.preventDefault();
 
-    const username = document.getElementById('username').value;
+    const username = document.getElementById('username').value.trim();
     const password = document.getElementById('password').value;
     const confirmPassword = document.getElementById('confirmPassword').value;
     const factionSelected = document.querySelector('input[name="faction"]:checked');
@@ -1022,21 +1053,23 @@ form.addEventListener('submit', function(e) {
         return;
     }
 
-    // Envia os dados via AJAX para o reg.php
+    // Envio dos dados via FormData (POST tradicional)
+    const formData = new FormData();
+    formData.append('username', username);
+    formData.append('password', password);
+
     fetch('https://voice.heroesofwow.com/reg.php', {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            username: username,
-            password: password
-        })
+        body: formData
     })
     .then(response => response.text())
     .then(data => {
-        console.log('Resposta do servidor:', data);
-        confirmationModal.style.display = 'flex';
+        console.log('Resposta:', data);
+        if (data.toLowerCase().includes("sucesso") || data.toLowerCase().includes("criada")) {
+            confirmationModal.style.display = 'flex';
+        } else {
+            alert("Erro ao registrar: " + data);
+        }
     })
     .catch(error => {
         console.error('Erro ao enviar:', error);
@@ -1044,7 +1077,6 @@ form.addEventListener('submit', function(e) {
     });
 });
 
-// Fecha o modal
 closeConfirmation.addEventListener('click', function() {
     confirmationModal.style.display = 'none';
     form.reset();
@@ -1052,7 +1084,7 @@ closeConfirmation.addEventListener('click', function() {
     hordeOption.classList.remove('selected');
 });
 
-// Fecha o modal ao clicar fora
+// Fechar modal ao clicar fora
 window.addEventListener('click', function(event) {
     if (event.target === confirmationModal) {
         confirmationModal.style.display = 'none';
@@ -1063,7 +1095,6 @@ window.addEventListener('click', function(event) {
 const formGroups = document.querySelectorAll('.form-group');
 formGroups.forEach(group => {
     const input = group.querySelector('input, select, textarea');
-
     if (input) {
         input.addEventListener('focus', function() {
             group.querySelector('label').style.color = 'white';
@@ -1079,6 +1110,7 @@ formGroups.forEach(group => {
     }
 });
 </script>
+
 
 </body>
 </html>
